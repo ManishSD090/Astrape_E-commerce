@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoTrashOutline, IoCreateOutline } from "react-icons/io5";
+import api from '../api';
 import axios from 'axios';
 
 const categories = ["Electronics", "Food & Beverages", "Furniture", "Sports", "Fashion", "Kitchen", "Health & Beauty", "Accessories", "Home Decor", "Books"];
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
  useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/items");
+      const res = await api.get("/items");
       const mappedProducts = res.data.map(item => ({
         ...item,
         productId: item._id,
@@ -96,12 +97,12 @@ const AdminDashboard = () => {
 
     try {
       if (editing) {
-        await axios.put(`http://localhost:5000/api/items/${formData.productId}`, newProduct);
-        setProducts(prev => prev.map(p => (p.productId === formData.productId ? { ...p, ...newProduct } : p)));
+        await api.put(`/items/${formData.productId}`, newProduct);
+        setProducts(prev => prev.map(p => (p.productId === formData.productId ? { ...p, ...newProduct, image: newProduct.imageUrl } : p)));
         setEditing(false);
       } else {
-        const res = await axios.post("http://localhost:5000/api/items", newProduct);
-        setProducts(prev => [...prev, { ...newProduct, productId: res.data._id }]);
+        const res = await api.post("/items", newProduct);
+        setProducts(prev => [...prev, { ...newProduct, productId: res.data._id, image: newProduct.imageUrl }]);
       }
       setFormData({
         productId: '',
@@ -135,7 +136,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/items/${id}`);
+      await api.delete(`/items/${id}`);
       setProducts(prev => prev.filter(p => p.productId !== id));
     } catch (err) {
       console.error("Delete failed:", err);

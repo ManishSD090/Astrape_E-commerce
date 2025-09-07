@@ -16,7 +16,11 @@ connectDB();
 const app = express();
 
 // Enable CORS
-app.use(cors());
+const frontendURL = "https://astrape-e-commerce.vercel.app";
+
+app.use(cors({
+  origin: frontendURL
+}));
 
 // --- THIS IS THE FIX ---
 // Add middleware to parse JSON request bodies.
