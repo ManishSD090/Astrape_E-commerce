@@ -78,14 +78,17 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-2 sm:p-4">
+    <div className="relative min-h-screen bg-gray-100 p-2 sm:p-4 ">
+    <div className='max-w-4xl absolute '>
       {/* Back Button */}
       <button
         onClick={() => navigate('/')}
-        className="-mt-[30em] mr-2 text-[#048399] hover:text-[#036d80] transition-colors flex items-center"
+        className="mb-[42em] text-[#048399] hover:text-[#036d80] transition-colors flex items-center"
       >
         <IoArrowBackCircleSharp size={25} className="mr-1" /> Back
       </button>
+      </div>
+      <div className="flex items-center justify-center w-full min-h-screen">
       <div className="bg-white rounded-lg shadow-2xl overflow-hidden w-full max-w-sm sm:max-w-md md:max-w-4xl min-h-[400px] md:min-h-[500px] relative">
         
         {/* Error/Success Messages */}
@@ -101,7 +104,7 @@ const AuthPage = () => {
         )}
         
         {/* Mobile Layout (sm and below) */}
-          <div className="md:hidden h-full">
+          <div className="md:hidden h-full ">
           <div className="h-full flex flex-col">
               {/* Toggle Buttons for Mobile */}
               <div className="flex bg-gray-50 rounded-t-lg">
@@ -336,7 +339,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
-      
+     </div> 
     </div>
   );
 };
